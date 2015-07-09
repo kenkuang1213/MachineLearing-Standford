@@ -17,7 +17,7 @@ for i = 1:m
     h=theta'*X(i,:)'-y(i);
     sigma+=h*h;
 end
-J=sigma/(2*m)
+J=sigma/(2*m);
 
 
 
