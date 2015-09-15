@@ -22,7 +22,21 @@ sigma = 0.3;
 %  Note: You can compute the prediction error using 
 %        mean(double(predictions ~= yval))
 %
+testparams = [0.01,0.03,0.1,0.3,1,3,10,30];
+minerror=flintmax();
+for index_c = 1 : length(testparams)
+    for index_sig = 1 : length(testparams)
+        c=testparams(index_c);
+        sig=testparams(index_sig);
+        predictions = svmPredict(svmTrain(X,y,c,@(x1,x2)gaussianKernel(x1,x2,sig)),Xval);
+        if minerror > mean(double(predictions ~= yval))
+            minerror= mean(double(predictions ~= yval));
+            C=c;
+            sigma=sig;
+        end
 
+    end
+end
 
 
 
